@@ -1,6 +1,24 @@
 <?php
 
+// データベースに接続
+require_once('dbconnect.php');
+//SQLを実行？
+//準備？
+$stmt = $dbh->prepare('SELECT * FROM tasks');
+//実行？
+$stmt->execute();
+//SQLの実行結果を変数に代入？
+$results = $stmt->fetchAll();
+
+
+// 中身を確認する
+//echo '<pre>';
+//var_dump($results);
+//die;
+
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -35,13 +53,18 @@
         </div>
 
         <div class="row p-3">
+        <!-- フォーイーチの中身（写真の塊？）を繰り返すということ -->
+        <!-- foreachは配列の要素の数だけ繰り返す繰り替えす分 -->
+        <!-- as の左側に入れるのが配列 -->
+        <?php foreach ($results as $result): ?>
             <div class="col-sm-6 col-md-4 col-lg-3 py-3 py-3">
                 <div class="card">
                     <img src="https://picsum.photos/200" class="card-img-top" alt="...">
                     <div class="card-body">
-                        <h5 class="card-title">ここにタイトル</h5>
+                    <!-- ここにタイトルって文字だけじゃなくて。titleとcontents?を入れて表示させる -->
+                        <h5 class="card-title"><?php echo ($result['title']); ?></h5>
                         <p class="card-text">
-                            ここに詳細
+                            <?php echo ($result['contents']); ?>
                         </p>
                         <div class="text-right d-flex justify-content-end">
                             <a href="edit.php" class="btn text-success">EDIT</a>
@@ -53,6 +76,7 @@
                     </div>
                 </div>
             </div>
+<?php endforeach; ?>
         </div>
     </div>
 
