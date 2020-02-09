@@ -2,12 +2,17 @@
 
 // データベースに接続
 require_once('dbconnect.php');
-//SQLを実行？
-//準備？
+
+require_once('function.php');
+
+//SQLを実行する　SELECTは表示するという意味
 $stmt = $dbh->prepare('SELECT * FROM tasks');
-//実行？
+
+// 実行
 $stmt->execute();
-//SQLの実行結果を変数に代入？
+
+//SQLの実行結果を変数に代入
+// fetchall で titleとIdとtextの全てのデータを選ぶ
 $results = $stmt->fetchAll();
 
 
@@ -61,7 +66,7 @@ $results = $stmt->fetchAll();
                 <div class="card">
                     <img src="https://picsum.photos/200" class="card-img-top" alt="...">
                     <div class="card-body">
-                    <!-- ここにタイトルって文字だけじゃなくて。titleとcontents?を入れて表示させる -->
+                    <!-- resultで選択したものをここでさらに、titleとcontentを選択している -->
                         <h5 class="card-title"><?php echo ($result['title']); ?></h5>
                         <p class="card-text">
                             <?php echo ($result['contents']); ?>
@@ -69,9 +74,9 @@ $results = $stmt->fetchAll();
                         <div class="text-right d-flex justify-content-end">
                             <a href="edit.php" class="btn text-success">EDIT</a>
                             <form action="delete.php" method="post">
-                                <input type="hidden" name="id">
+                                <input type="hidden" name="id" value="<?php echo ($result['id']);?>">
                                 <button type="submit" class="btn text-danger">DELETE</button>
-                            </form>
+                            </form> 
                         </div>
                     </div>
                 </div>

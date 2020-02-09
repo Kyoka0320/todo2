@@ -1,6 +1,8 @@
 <?php
 
-//DBに接続
+// dbconnect.phpはmySQlに接続するためのPHP
+// PDOを使うと、PHPからDBを操作することができる
+//DBに接続するためのコード
 $host = "localhost";
 $dbname = "todo";
 $charset = "utf8mb4";
